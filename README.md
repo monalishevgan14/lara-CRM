@@ -79,17 +79,18 @@ The system is designed with a modern admin layout including sidebar navigation, 
 - Chart.js
 
 ---
-
 # ⚙ Installation Guide
+
+---
 
 ## 1️⃣ Clone Repository
 
 ```bash
 git clone <repository-url>
 cd project-folder
+```
 
-
-# ⚙ Installation Guide
+---
 
 ## 2️⃣ Install Dependencies
 
@@ -101,15 +102,15 @@ composer install
 
 ## 3️⃣ Setup Environment
 
-Copy the environment file:
+Copy environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Then update your database credentials inside the `.env` file:
+Update database credentials inside `.env`:
 
-```
+```env
 DB_DATABASE=your_database_name
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
@@ -137,22 +138,24 @@ php artisan migrate
 
 Inside your `.env` file:
 
-```
+```env
 QUEUE_CONNECTION=database
 ```
 
-Then run:
+Create queue table:
 
 ```bash
 php artisan queue:table
 php artisan migrate
 ```
 
-Start the queue worker:
+Start queue worker:
 
 ```bash
 php artisan queue:work
 ```
+
+⚠ Keep this running when importing large CSV files.
 
 ---
 
@@ -180,7 +183,7 @@ app/
  ├── Jobs/
  │    └── ImportProductsFromCsv.php
 resources/
- └── views/
+ ├── views/
 routes/
 database/
 ```
@@ -189,7 +192,7 @@ database/
 
 # 📄 CSV Format for Bulk Upload
 
-Your CSV file should follow this structure:
+Your CSV file must follow this format:
 
 ```csv
 name,price,stock
@@ -198,6 +201,42 @@ Phone,20000,5
 Mouse,500,25
 ```
 
+---
 
+# 🔄 Queue Job Example
 
+Bulk upload is processed using Laravel Jobs:
 
+```
+app/Jobs/ImportProductsFromCsv.php
+```
+
+This ensures:
+
+- Large files do not freeze the application
+- Background processing
+- Better performance
+- Scalable system
+
+---
+
+# 🧑‍💻 Author
+
+Developed by **Monali Shevgan**
+
+---
+
+# 📌 Future Improvements
+
+- User Authentication System
+- Role & Permission Management
+- API Integration
+- Reports Export (PDF/Excel)
+- Product Images Upload
+- Sales Module
+
+---
+
+# ⭐ License
+
+This project is open-source and available for learning and professional portfolio use.
