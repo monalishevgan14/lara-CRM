@@ -87,3 +87,115 @@ The system is designed with a modern admin layout including sidebar navigation, 
 ```bash
 git clone <repository-url>
 cd project-folder
+
+
+# ⚙ Installation Guide
+
+## 2️⃣ Install Dependencies
+
+```bash
+composer install
+```
+
+---
+
+## 3️⃣ Setup Environment
+
+Copy the environment file:
+
+```bash
+cp .env.example .env
+```
+
+Then update your database credentials inside the `.env` file:
+
+```
+DB_DATABASE=your_database_name
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+---
+
+## 4️⃣ Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## 5️⃣ Run Migrations
+
+```bash
+php artisan migrate
+```
+
+---
+
+## 6️⃣ Setup Queue (Important for Bulk Upload)
+
+Inside your `.env` file:
+
+```
+QUEUE_CONNECTION=database
+```
+
+Then run:
+
+```bash
+php artisan queue:table
+php artisan migrate
+```
+
+Start the queue worker:
+
+```bash
+php artisan queue:work
+```
+
+---
+
+## 7️⃣ Run Application
+
+```bash
+php artisan serve
+```
+
+Open in browser:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# 📁 Project Structure
+
+```
+app/
+ ├── Models/
+ ├── Http/
+ │    └── Controllers/
+ ├── Jobs/
+ │    └── ImportProductsFromCsv.php
+resources/
+ └── views/
+routes/
+database/
+```
+
+---
+
+# 📄 CSV Format for Bulk Upload
+
+Your CSV file should follow this structure:
+
+```csv
+name,price,stock
+Laptop,55000,10
+Phone,20000,5
+Mouse,500,25
+```
+
+
